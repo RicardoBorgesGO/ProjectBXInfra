@@ -22,4 +22,9 @@ public class EventoServiceImpl implements IEventoService {
 		return eventoDao.buscaTodos();
 	}
 
+	@Override
+	public void salvarEvento(final Evento evento) {
+		eventoDao.salvar(evento);
+	}
+
 }

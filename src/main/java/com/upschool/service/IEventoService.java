@@ -12,4 +12,11 @@ public interface IEventoService {
 	 * @return
 	 */
 	public List<Evento> listarTodosOsEventos();
+
+	/**
+	 * Adiciona um novo Evento
+	 * 
+	 * @param evento
+	 */
+	public void salvarEvento(Evento evento);
 }

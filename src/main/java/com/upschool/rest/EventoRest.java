@@ -34,7 +34,13 @@ public class EventoRest {
 	@Path("/setEvento")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addEvento(final Evento evento) {
-
-		return null;
+		try {
+			eventoService.salvarEvento(evento);
+		} catch (final Exception e) {
+			return Response.status(500)
+					.entity("Erro ao salvar evento. Erro: " + e)
+					.build();
+		}
+		return Response.status(201).entity("Evento salvo com sucesso!").build();
 	}
 }
