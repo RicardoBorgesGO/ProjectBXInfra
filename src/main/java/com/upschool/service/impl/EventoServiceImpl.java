@@ -27,4 +27,10 @@ public class EventoServiceImpl implements IEventoService {
 		eventoDao.salvar(evento);
 	}
 
+	@Override
+	public void removeEvento(final Evento evento) {
+		final Evento eventoThis = eventoDao.buscaPorId(evento.getId());
+		eventoDao.excluir(eventoThis);
+	}
+
 }

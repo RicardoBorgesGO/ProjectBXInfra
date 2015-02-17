@@ -43,4 +43,18 @@ public class EventoRest {
 		}
 		return Response.status(201).entity("Evento salvo com sucesso!").build();
 	}
+
+	@POST
+	@Path("/deleteEvento")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response deleteEvento(final Evento evento) {
+		try {
+			eventoService.removeEvento(evento);
+		} catch (final Exception e) {
+			e.printStackTrace();
+			return Response.status(500)
+					.entity("Erro ao salvar evento. Erro: " + e).build();
+		}
+		return Response.status(201).entity("Evento salvo com sucesso!").build();
+	}
 }

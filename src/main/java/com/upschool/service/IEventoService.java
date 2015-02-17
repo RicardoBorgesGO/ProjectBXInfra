@@ -15,8 +15,16 @@ public interface IEventoService {
 
 	/**
 	 * Adiciona um novo Evento
-	 * 
+	 *
 	 * @param evento
 	 */
 	public void salvarEvento(Evento evento);
+
+	/**
+	 * Remove evento pelo id
+	 *
+	 * @param id
+	 */
+	public void removeEvento(Evento evento);
+
 }
