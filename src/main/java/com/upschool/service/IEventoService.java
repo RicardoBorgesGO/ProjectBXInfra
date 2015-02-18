@@ -27,4 +27,11 @@ public interface IEventoService {
 	 */
 	public void removeEvento(Evento evento);
 
+	/**
+	 * Altera evento
+	 * 
+	 * @param evento
+	 */
+	public void alterarEvento(Evento evento);
+
 }

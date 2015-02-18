@@ -8,6 +8,8 @@ public interface IGenericDAO<T> {
 
 	public void excluir(T bean);
 
+	public void atualizar(T bean);
+
 	public T buscaPorId(Object id);
 
 	public List<T> buscaTodos();

@@ -53,8 +53,25 @@ public class EventoRest {
 		} catch (final Exception e) {
 			e.printStackTrace();
 			return Response.status(500)
-					.entity("Erro ao salvar evento. Erro: " + e).build();
+					.entity("Erro ao remover evento. Erro: " + e).build();
 		}
-		return Response.status(201).entity("Evento salvo com sucesso!").build();
+		return Response.status(201).entity("Evento removido com sucesso!")
+				.build();
 	}
+
+	@POST
+	@Path("/updateEvento")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateEvento(final Evento evento) {
+		try {
+			eventoService.alterarEvento(evento);
+		} catch (final Exception e) {
+			e.printStackTrace();
+			return Response.status(500)
+					.entity("Erro ao alterar evento. Erro: " + e).build();
+		}
+		return Response.status(201).entity("Evento alterado com sucesso!")
+				.build();
+	}
+
 }

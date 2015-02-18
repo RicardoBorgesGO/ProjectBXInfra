@@ -29,6 +29,11 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 	}
 
 	@Override
+	public void atualizar(final T bean) {
+		entityManager.merge(bean);
+	}
+
+	@Override
 	public void excluir(final T bean) {
 		entityManager.remove(bean);
 	}
@@ -53,4 +58,5 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 	protected Service getHibernateCurrentSession() {
 		return (Service) entityManager.getDelegate();
 	}
+
 }

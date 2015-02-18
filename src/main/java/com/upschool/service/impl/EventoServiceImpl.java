@@ -33,4 +33,9 @@ public class EventoServiceImpl implements IEventoService {
 		eventoDao.excluir(eventoThis);
 	}
 
+	@Override
+	public void alterarEvento(final Evento evento) {
+		eventoDao.atualizar(evento);
+	}
+
 }
