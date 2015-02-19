@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.upschool.dao.IDentistiaDAO;
+import com.upschool.dao.IDentistaDAO;
 import com.upschool.entity.Dentista;
 import com.upschool.service.IDentistaService;
 
@@ -15,7 +15,7 @@ import com.upschool.service.IDentistaService;
 public class DentistaServiceImpl implements IDentistaService {
 
 	@Autowired
-	private IDentistiaDAO dao;
+	private IDentistaDAO dao;
 
 	@Override
 	public List<Dentista> buscarTodosDentistas() {
