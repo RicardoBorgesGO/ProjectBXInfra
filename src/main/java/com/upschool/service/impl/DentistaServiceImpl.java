@@ -22,4 +22,9 @@ public class DentistaServiceImpl implements IDentistaService {
 		return dao.buscaTodos();
 	}
 
+	@Override
+	public void salvarDentista(final Dentista dentista) {
+		dao.salvar(dentista);
+	}
+
 }

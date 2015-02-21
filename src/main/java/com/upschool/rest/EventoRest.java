@@ -37,6 +37,7 @@ public class EventoRest {
 		try {
 			eventoService.salvarEvento(evento);
 		} catch (final Exception e) {
+			e.printStackTrace();
 			return Response.status(500)
 					.entity("Erro ao salvar evento. Erro: " + e)
 					.build();

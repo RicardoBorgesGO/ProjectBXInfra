@@ -8,8 +8,15 @@ public interface IDentistaService {
 
 	/**
 	 * Busca todos os dentistas
-	 * 
+	 *
 	 * @return
 	 */
 	public List<Dentista> buscarTodosDentistas();
+
+	/**
+	 * Salva dentista
+	 * 
+	 * @param dentista
+	 */
+	public void salvarDentista(Dentista dentista);
 }
