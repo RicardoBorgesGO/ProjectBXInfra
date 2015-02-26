@@ -5,17 +5,17 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.upschool.entity.Usuario;
 import com.upschool.service.IUsuarioService;
+import com.upschool.util.MensagemRespostaServico;
 
 @Component
 @Path("/usuario")
-public class UsuarioRest {
+public class UsuarioRest extends ServicoRest {
 
 	@Autowired
 	private IUsuarioService usuarioService;
@@ -27,16 +27,13 @@ public class UsuarioRest {
 		try {
 			Usuario usuarioCadastrado = usuarioService.realizarLogin(usuario);
 			if (usuarioCadastrado != null) {
-				return Response.status(Status.NOT_FOUND)
-						.entity("Usuario não encontrado.").build();
+				return gerarMensagemDeRetorno(MensagemRespostaServico.ERRO_USUARIO_NAO_ENCONTRADO);
 			}
 		} catch (final Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.INTERNAL_SERVER_ERROR)
-					.entity("Erro ao realizar o login. Erro: " + e).build();
+			return gerarMensagemDeErro(e);
 		}
-		return Response.status(Status.CREATED)
-				.entity("Login realizado com sucesso!").build();
+		return gerarMensagemDeRetorno(MensagemRespostaServico.SUCESSO_LOGIN_REALIZADO);
 	}
 
 }
