@@ -12,7 +12,7 @@ public class UsuarioDAOImpl extends GenericDAOImpl<Usuario> implements
 	@Override
 	public Usuario realizarLogin(Usuario usuario) {
 		return (Usuario) getEntityManager().createQuery(
-				"SELECT e FROM " + Usuario.class + " e").getSingleResult();
+				"SELECT e FROM Usuario e").getSingleResult();
 	}
 
 }

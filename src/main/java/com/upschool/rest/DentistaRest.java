@@ -43,4 +43,18 @@ public class DentistaRest {
 		}
 		return Response.status(201).entity("Evento salvo com sucesso!").build();
 	}
+	
+	@POST
+	@Path("/deleteDentista")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response excluirDentista(final Dentista dentista) {
+		try {
+			dentistaService.excluirDentista(dentista);
+		} catch (final Exception e) {
+			e.printStackTrace();
+			return Response.status(500)
+					.entity("Erro ao excluir dentista. Erro: " + e).build();
+		}
+		return Response.status(201).entity("Dentista excluido com sucesso!").build();
+	}
 }

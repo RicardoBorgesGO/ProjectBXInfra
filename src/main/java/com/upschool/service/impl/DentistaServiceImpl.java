@@ -27,4 +27,9 @@ public class DentistaServiceImpl implements IDentistaService {
 		dao.salvar(dentista);
 	}
 
+	@Override
+	public void excluirDentista(Dentista dentista) {
+		dao.excluir(dentista);
+	}
+
 }
