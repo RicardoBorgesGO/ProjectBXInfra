@@ -19,4 +19,10 @@ public interface IDentistaService {
 	 * @param dentista
 	 */
 	public void salvarDentista(Dentista dentista);
+	
+	/**
+	 * Exclui dentista
+	 * @param dentista
+	 */
+	public void excluirDentista(Dentista dentista);
 }
