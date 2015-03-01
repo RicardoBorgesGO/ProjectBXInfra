@@ -43,7 +43,7 @@ public class DentistaRest {
 		}
 		return Response.status(201).entity("Evento salvo com sucesso!").build();
 	}
-	
+
 	@POST
 	@Path("/deleteDentista")
 	@Consumes(MediaType.APPLICATION_JSON)

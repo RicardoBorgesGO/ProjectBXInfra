@@ -15,13 +15,21 @@ public interface IDentistaService {
 
 	/**
 	 * Salva dentista
-	 * 
+	 *
 	 * @param dentista
 	 */
 	public void salvarDentista(Dentista dentista);
-	
+
+	/**
+	 * Atualiza Dentista
+	 * 
+	 * @param dentista
+	 */
+	public void atualziarDentista(Dentista dentista);
+
 	/**
 	 * Exclui dentista
+	 * 
 	 * @param dentista
 	 */
 	public void excluirDentista(Dentista dentista);

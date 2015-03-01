@@ -24,12 +24,21 @@ public class DentistaServiceImpl implements IDentistaService {
 
 	@Override
 	public void salvarDentista(final Dentista dentista) {
-		dao.salvar(dentista);
+		if (dentista.getId() == null)
+			dao.salvar(dentista);
+		else
+			dao.atualizar(dentista);
 	}
 
 	@Override
-	public void excluirDentista(Dentista dentista) {
-		dao.excluir(dentista);
+	public void excluirDentista(final Dentista dentista) {
+		final Dentista dentistaThis = dao.buscaPorId(dentista.getId());
+		dao.excluir(dentistaThis);
+	}
+
+	@Override
+	public void atualziarDentista(final Dentista dentista) {
+		dao.atualizar(dentista);
 	}
 
 }
