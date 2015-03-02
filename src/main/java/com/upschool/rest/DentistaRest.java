@@ -47,6 +47,7 @@ public class DentistaRest {
 	@POST
 	@Path("/deleteDentista")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Deprecated
 	public Response excluirDentista(final Dentista dentista) {
 		try {
 			dentistaService.excluirDentista(dentista);
