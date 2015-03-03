@@ -13,29 +13,29 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.upschool.entity.Dentista;
-import com.upschool.service.IDentistaService;
+import com.upschool.entity.Colaborador;
+import com.upschool.service.IColaboradorService;
 
 @Component
-@Path("/dentista")
-public class DentistaRest {
+@Path("/colaborador")
+public class ColaboradorRest {
 
 	@Autowired
-	private IDentistaService dentistaService;
+	private IColaboradorService colaboradorService;
 
 	@GET
-	@Path("/getDentistas")
+	@Path("/getColaboradores")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Dentista> getDentistas() {
-		return dentistaService.buscarTodosDentistas();
+	public List<Colaborador> getColaboradores() {
+		return colaboradorService.buscarTodosColaboradores();
 	}
 
 	@POST
-	@Path("/setDentista")
+	@Path("/setColaborador")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response salvarDentista(final Dentista dentista) {
+	public Response salvarColaborador(final Colaborador colaborador) {
 		try {
-			dentistaService.salvarDentista(dentista);
+			colaboradorService.salvarColaborador(colaborador);
 		} catch (final Exception e) {
 			e.printStackTrace();
 			return Response.status(500)
@@ -45,17 +45,17 @@ public class DentistaRest {
 	}
 
 	@POST
-	@Path("/deleteDentista")
+	@Path("/deleteColaborador")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Deprecated
-	public Response excluirDentista(final Dentista dentista) {
+	public Response excluirColaborador(final Colaborador colaborador) {
 		try {
-			dentistaService.excluirDentista(dentista);
+			colaboradorService.excluirColaborador(colaborador);
 		} catch (final Exception e) {
 			e.printStackTrace();
 			return Response.status(500)
-					.entity("Erro ao excluir dentista. Erro: " + e).build();
+					.entity("Erro ao excluir colaborador. Erro: " + e).build();
 		}
-		return Response.status(201).entity("Dentista excluido com sucesso!").build();
+		return Response.status(201).entity("Colaborador excluido com sucesso!").build();
 	}
 }

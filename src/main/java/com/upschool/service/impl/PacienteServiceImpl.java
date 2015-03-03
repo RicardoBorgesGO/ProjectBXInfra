@@ -23,8 +23,11 @@ public class PacienteServiceImpl implements IPacienteService {
 	}
 
 	@Override
-	public void salvarPaciente(Paciente paciente) {
-		pacienteDAO.salvar(paciente);
+	public void salvarPaciente(final Paciente paciente) {
+		if (paciente.getId() == null)
+			pacienteDAO.salvar(paciente);
+		else
+			pacienteDAO.atualizar(paciente);
 	}
 
 }
