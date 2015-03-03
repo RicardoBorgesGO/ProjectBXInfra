@@ -1,5 +1,7 @@
 package br.com.infra.dao.impl;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import br.com.infra.commons.entity.Usuario;
@@ -11,8 +13,12 @@ public class UsuarioDAOImpl extends GenericDAOImpl<Usuario> implements
 
 	@Override
 	public Usuario realizarLogin(Usuario usuario) {
-		return (Usuario) getEntityManager().createQuery(
-				"SELECT e FROM Usuario e").getSingleResult();
+		Criteria criteria = getHibernateCurrentSession().createCriteria(Usuario.class);
+		
+		criteria.add(Restrictions.eq("login", usuario.getLogin()));
+		criteria.add(Restrictions.eq("senha", usuario.getSenha()));
+		
+		return (Usuario) criteria.uniqueResult();
 	}
 
 }

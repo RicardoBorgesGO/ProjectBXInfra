@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.hibernate.service.Service;
+import org.hibernate.Session;
 
 import br.com.infra.dao.IGenericDAO;
 
@@ -55,8 +55,8 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 		return entityManager;
 	}
 
-	protected Service getHibernateCurrentSession() {
-		return (Service) entityManager.getDelegate();
+	protected Session getHibernateCurrentSession() {
+		return (Session) entityManager.getDelegate();
 	}
 
 }

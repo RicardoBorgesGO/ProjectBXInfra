@@ -26,7 +26,7 @@ public class UsuarioRest extends ServicoRest {
 	public Response realizarLogin(final Usuario usuario) {
 		try {
 			Usuario usuarioCadastrado = usuarioService.realizarLogin(usuario);
-			if (usuarioCadastrado != null) {
+			if (usuarioCadastrado == null) {
 				return gerarMensagemDeRetorno(MensagemRespostaServico.ERRO_USUARIO_NAO_ENCONTRADO);
 			}
 		} catch (final Exception e) {
