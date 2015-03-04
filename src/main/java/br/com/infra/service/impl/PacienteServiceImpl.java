@@ -1,5 +1,7 @@
 package br.com.infra.service.impl;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,17 @@ public class PacienteServiceImpl implements IPacienteService {
 	
 	@Override
 	public List<Paciente> buscarTodos() {
-		return pacienteDAO.buscaTodos();
+		List<Paciente> pacientes = pacienteDAO.buscaTodos();
+		
+		Collections.sort(pacientes, new Comparator<Paciente>() {
+			@Override
+			public int compare(Paciente paciente1, Paciente paciente2) {
+				return paciente1.getNome().compareTo(paciente2.getNome());
+			}
+			
+		});
+		
+		return pacientes;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package br.com.infra.service.impl;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,17 @@ public class ColaboradorServiceImpl implements IColaboradorService {
 
 	@Override
 	public List<Colaborador> buscarTodosColaboradores() {
-		return dao.buscaTodos();
+		List<Colaborador> colaboradores = dao.buscaTodos();
+		
+		Collections.sort(colaboradores, new Comparator<Colaborador>() {
+			@Override
+			public int compare(Colaborador colaborador1, Colaborador colaborador2) {
+				return colaborador1.getNome().compareTo(colaborador2.getNome());
+			}
+			
+		});
+		
+		return colaboradores;
 	}
 
 	@Override
