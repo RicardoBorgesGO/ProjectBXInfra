@@ -11,3 +11,8 @@
 *.jar
 *.war
 *.ear
+/build/
+/.settings/
+/.classpath
+/.gitignore
+/.project
