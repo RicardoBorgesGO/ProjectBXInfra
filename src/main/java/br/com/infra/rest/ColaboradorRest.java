@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.infra.commons.entity.Colaborador;
+import br.com.infra.commons.entity.TipoDeColaborador;
 import br.com.infra.service.IColaboradorService;
+import br.com.infra.service.ITipoDeColaboradorService;
 
 @Component
 @Path("/colaborador")
@@ -22,6 +24,9 @@ public class ColaboradorRest {
 
 	@Autowired
 	private IColaboradorService colaboradorService;
+	
+	@Autowired
+	private ITipoDeColaboradorService tipoDeColaboradorService;
 
 	@GET
 	@Path("/getColaboradores")
@@ -42,6 +47,13 @@ public class ColaboradorRest {
 					.entity("Erro ao salvar evento. Erro: " + e).build();
 		}
 		return Response.status(201).entity("Evento salvo com sucesso!").build();
+	}
+	
+	@GET
+	@Path("getTiposDeColaboradores")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<TipoDeColaborador> getTiposDeColaboradores() {
+		return tipoDeColaboradorService.buscaTodos();
 	}
 
 	@POST
