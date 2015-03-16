@@ -12,6 +12,12 @@ public interface IEventoService {
 	 * @return
 	 */
 	public List<Evento> listarTodosOsEventos();
+	
+	/**
+	 * Busca os eventos de um colaborador
+	 * @return
+	 */
+	public List<Evento> listaEventosPorIdDoColaborador(Long id);
 
 	/**
 	 * Adiciona um novo Evento

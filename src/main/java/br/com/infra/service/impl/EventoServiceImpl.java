@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.infra.commons.entity.Colaborador;
 import br.com.infra.commons.entity.Evento;
 import br.com.infra.dao.IEventoDAO;
 import br.com.infra.service.IEventoService;
@@ -36,6 +37,11 @@ public class EventoServiceImpl implements IEventoService {
 	@Override
 	public void alterarEvento(final Evento evento) {
 		eventoDao.atualizar(evento);
+	}
+
+	@Override
+	public List<Evento> listaEventosPorIdDoColaborador(Long id) {
+		return eventoDao.buscaPeloIdDoColaborador(new Colaborador(id));
 	}
 
 }
