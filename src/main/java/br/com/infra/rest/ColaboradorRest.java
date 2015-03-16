@@ -15,16 +15,17 @@ import org.springframework.stereotype.Component;
 
 import br.com.infra.commons.entity.Colaborador;
 import br.com.infra.commons.entity.TipoDeColaborador;
+import br.com.infra.commons.util.MensagemRespostaServico;
 import br.com.infra.service.IColaboradorService;
 import br.com.infra.service.ITipoDeColaboradorService;
 
 @Component
 @Path("/colaborador")
-public class ColaboradorRest {
+public class ColaboradorRest extends ServicoRest {
 
 	@Autowired
 	private IColaboradorService colaboradorService;
-	
+
 	@Autowired
 	private ITipoDeColaboradorService tipoDeColaboradorService;
 
@@ -43,12 +44,13 @@ public class ColaboradorRest {
 			colaboradorService.salvarColaborador(colaborador);
 		} catch (final Exception e) {
 			e.printStackTrace();
-			return Response.status(500)
-					.entity("Erro ao salvar evento. Erro: " + e).build();
+			return gerarMensagemDeRetorno(MensagemRespostaServico.ERRO_NAO_SALVO);
+			// return Response.status(500)
+			// .entity("Erro ao salvar colaborador. Erro: " + e).build();
 		}
-		return Response.status(201).entity("Evento salvo com sucesso!").build();
+		return gerarMensagemDeRetorno(MensagemRespostaServico.SUCESSO_SALVAR);
 	}
-	
+
 	@GET
 	@Path("getTiposDeColaboradores")
 	@Produces(MediaType.APPLICATION_JSON)

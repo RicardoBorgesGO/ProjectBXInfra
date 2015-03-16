@@ -31,6 +31,7 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 	@Override
 	public void atualizar(final T bean) {
 		entityManager.merge(bean);
+		entityManager.flush();
 	}
 
 	@Override
