@@ -7,6 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import br.com.infra.dao.IGenericDAO;
 
@@ -14,8 +17,11 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 
 	private Class<T> clazz;
 
-	@PersistenceContext
+//	@PersistenceContext
 	private EntityManager entityManager;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@SuppressWarnings("unchecked")
 	public GenericDAOImpl() {
@@ -47,6 +53,9 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> buscaTodos() {
+		sessionFactory.getCurrentSession().createQuery("SELECT e FROM " + clazz.getSimpleName() + " e").list();
+//		withOptions().tenantIdentifier("cliente1").openSession();
+		
 		return entityManager.createQuery("SELECT e FROM "
 				+ clazz.getSimpleName() + " e")
 				.getResultList();
@@ -59,5 +68,15 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 	protected Session getHibernateCurrentSession() {
 		return (Session) entityManager.getDelegate();
 	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
+	
 
 }

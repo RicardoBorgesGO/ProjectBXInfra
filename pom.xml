@@ -12,6 +12,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+
+		<dependency>
 			<groupId>br.com.medical</groupId>
 			<artifactId>sgo-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -88,7 +94,7 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>

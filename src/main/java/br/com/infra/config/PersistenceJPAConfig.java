@@ -13,6 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -29,6 +30,9 @@ public class PersistenceJPAConfig {
 
 	@Autowired
 	private Environment env;
+	
+//	@Autowired
+//	private MultiTenantConnectionProvider multiTenantConnectionProvider;
 
 	public PersistenceJPAConfig() {
 		super();
@@ -36,17 +40,38 @@ public class PersistenceJPAConfig {
 
 	// beans
 
+//	@Bean
+//	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+//		final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+//		em.setDataSource(dataSource());
+//		em.setPackagesToScan(new String[] { "br.com.infra.commons.entity" });
+//
+//		final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+//		em.setJpaVendorAdapter(vendorAdapter);
+//		em.setJpaProperties(additionalProperties());
+//
+//		return em;
+//	}                                   
+	
+//	@Bean
+//	public SimpleMultiTenantConnectionProvider simpleTenantConnectionProvider() {
+//		SimpleMultiTenantConnectionProvider multiTenantConnectionProvider = new SimpleMultiTenantConnectionProvider();
+//		multiTenantConnectionProvider.setDataSourceMap(dataSource());
+//		
+//		return multiTenantConnectionProvider;
+//	}
+	
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(dataSource());
-		em.setPackagesToScan(new String[] { "br.com.infra.commons.entity" });
-
-		final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		em.setJpaVendorAdapter(vendorAdapter);
-		em.setJpaProperties(additionalProperties());
-
-		return em;
+	public org.springframework.orm.hibernate4.LocalSessionFactoryBean sessionFactory() {
+		//TODO Temporário
+//		simpleTenantConnectionProvider();
+		
+		org.springframework.orm.hibernate4.LocalSessionFactoryBean sessionFactory = new org.springframework.orm.hibernate4.LocalSessionFactoryBean();
+		sessionFactory.setDataSource(dataSource());
+		sessionFactory.setPackagesToScan(new String[] {"br.com.infra.commons.entity"});
+		sessionFactory.setHibernateProperties(additionalProperties());
+		
+		return sessionFactory;
 	}
 
 	@Bean
@@ -56,15 +81,17 @@ public class PersistenceJPAConfig {
 		dataSource.setUrl(Preconditions.checkNotNull(env.getProperty("jdbc.url")));
 		dataSource.setUsername(Preconditions.checkNotNull(env.getProperty("jdbc.user")));
 		dataSource.setPassword(Preconditions.checkNotNull(env.getProperty("jdbc.pass")));
-
+		
 		return dataSource;
 	}
 
 	@Bean
-	public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
-		final JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(emf);
-		return transactionManager;
+	public HibernateTransactionManager transactionManager() {
+		HibernateTransactionManager txManager = new HibernateTransactionManager();
+		txManager.setSessionFactory(sessionFactory().getObject());
+		txManager.setDataSource(dataSource());
+		
+	    return txManager;
 	}
 
 	@Bean
@@ -76,6 +103,10 @@ public class PersistenceJPAConfig {
 		final Properties hibernateProperties = new Properties();
 		//hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 		hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+		hibernateProperties.setProperty("hibernate.multiTenancy", env.getProperty("hibernate.multiTenancy"));
+		hibernateProperties.setProperty("hibernate.multi_tenant_connection_provider", env.getProperty("hibernate.multi_tenant_connection_provider"));
+		hibernateProperties.setProperty("hibernate.tenant_identifier_resolver", env.getProperty("hibernate.tenant_identifier_resolver"));
+		
 		// hibernateProperties.setProperty("hibernate.globally_quoted_identifiers", "true");
 		return hibernateProperties;
 	}

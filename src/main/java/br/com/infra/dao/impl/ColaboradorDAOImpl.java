@@ -8,5 +8,4 @@ import br.com.infra.dao.IColaboradorDAO;
 @Repository
 public class ColaboradorDAOImpl extends GenericDAOImpl<Colaborador> implements
 		IColaboradorDAO {
-
 }
