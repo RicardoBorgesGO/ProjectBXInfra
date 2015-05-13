@@ -1,15 +1,12 @@
 package br.com.infra.dao.impl;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import br.com.infra.dao.IGenericDAO;
 
@@ -17,9 +14,6 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 
 	private Class<T> clazz;
 
-//	@PersistenceContext
-	private EntityManager entityManager;
-	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -31,42 +25,36 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 
 	@Override
 	public void salvar(final T bean) {
-		entityManager.persist(bean);
+		getHibernateCurrentSession().persist(bean);
 	}
 
 	@Override
 	public void atualizar(final T bean) {
-		entityManager.merge(bean);
-		entityManager.flush();
+		//TODO criar booleano para executar o flush
+		getHibernateCurrentSession().merge(bean);
+		getHibernateCurrentSession().flush();
 	}
 
 	@Override
 	public void excluir(final T bean) {
-		entityManager.remove(bean);
+		getHibernateCurrentSession().delete(bean);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public T buscaPorId(final Object id) {
-		return entityManager.find(clazz, id);
+	public <E extends Serializable> T buscaPorId(final E id) {
+		//TODO Testar modificacao
+		return (T) getHibernateCurrentSession().get(clazz, id);
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> buscaTodos() {
-		sessionFactory.getCurrentSession().createQuery("SELECT e FROM " + clazz.getSimpleName() + " e").list();
-//		withOptions().tenantIdentifier("cliente1").openSession();
-		
-		return entityManager.createQuery("SELECT e FROM "
-				+ clazz.getSimpleName() + " e")
-				.getResultList();
-	}
-
-	protected EntityManager getEntityManager() {
-		return entityManager;
+		return getHibernateCurrentSession().createQuery("SELECT e FROM " + clazz.getSimpleName() + " e").list();
 	}
 
 	protected Session getHibernateCurrentSession() {
-		return (Session) entityManager.getDelegate();
+		return (Session) getSessionFactory().getCurrentSession();
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -77,6 +65,4 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	
-
 }

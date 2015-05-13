@@ -46,7 +46,8 @@ public class SchemaResolver {
 //		tenantSchema = tenantService.getTenantSchemaName();
 //		LOGGER.debug("Tenant Schema is {}", tenantSchema);
 		
-		tenantSchema = "teste1";
+		//TODO Implementar estratégia de trocar de tenant
+		tenantSchema = "public";
 		
 		return tenantSchema;
 	}

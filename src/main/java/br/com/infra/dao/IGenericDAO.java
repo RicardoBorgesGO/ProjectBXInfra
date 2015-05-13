@@ -1,5 +1,6 @@
 package br.com.infra.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 public interface IGenericDAO<T> {
@@ -10,7 +11,7 @@ public interface IGenericDAO<T> {
 
 	public void atualizar(T bean);
 
-	public T buscaPorId(Object id);
+	public <E extends Serializable> T buscaPorId(final E id);
 
 	public List<T> buscaTodos();
 }
