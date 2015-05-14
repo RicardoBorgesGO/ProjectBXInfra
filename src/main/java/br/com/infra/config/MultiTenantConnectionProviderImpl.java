@@ -7,7 +7,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 
-//@Deprecated
 public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionProvider {
 
 	/**

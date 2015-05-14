@@ -21,4 +21,12 @@ public class UsuarioDAOImpl extends GenericDAOImpl<Usuario> implements
 		return (Usuario) criteria.uniqueResult();
 	}
 
+	@Override
+	public Usuario buscaPorUsuario(String userName) {
+		Criteria criteria = getHibernateCurrentSession().createCriteria(Usuario.class);
+		criteria.add(Restrictions.eq("login", userName));
+		
+		return (Usuario) criteria.uniqueResult();
+	}
+
 }

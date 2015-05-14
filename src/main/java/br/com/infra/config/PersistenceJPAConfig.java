@@ -2,7 +2,6 @@ package br.com.infra.config;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.google.common.base.Preconditions;
@@ -31,42 +27,14 @@ public class PersistenceJPAConfig {
 	@Autowired
 	private Environment env;
 	
-//	@Autowired
-//	private MultiTenantConnectionProvider multiTenantConnectionProvider;
-
 	public PersistenceJPAConfig() {
 		super();
 	}
 
 	// beans
-
-//	@Bean
-//	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-//		final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-//		em.setDataSource(dataSource());
-//		em.setPackagesToScan(new String[] { "br.com.infra.commons.entity" });
-//
-//		final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//		em.setJpaVendorAdapter(vendorAdapter);
-//		em.setJpaProperties(additionalProperties());
-//
-//		return em;
-//	}                                   
-	
-//	@Bean
-//	public SimpleMultiTenantConnectionProvider simpleTenantConnectionProvider() {
-//		SimpleMultiTenantConnectionProvider multiTenantConnectionProvider = new SimpleMultiTenantConnectionProvider();
-//		multiTenantConnectionProvider.setDataSourceMap(dataSource());
-//		
-//		return multiTenantConnectionProvider;
-//	}
-	
 	@Bean
-	public org.springframework.orm.hibernate4.LocalSessionFactoryBean sessionFactory() {
-		//TODO Temporário
-//		simpleTenantConnectionProvider();
-		
-		org.springframework.orm.hibernate4.LocalSessionFactoryBean sessionFactory = new org.springframework.orm.hibernate4.LocalSessionFactoryBean();
+	public LocalSessionFactoryBean sessionFactory() {
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
 		sessionFactory.setPackagesToScan(new String[] {"br.com.infra.commons.entity"});
 		sessionFactory.setHibernateProperties(additionalProperties());
@@ -98,7 +66,7 @@ public class PersistenceJPAConfig {
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
-
+	
 	final Properties additionalProperties() {
 		final Properties hibernateProperties = new Properties();
 		//hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));

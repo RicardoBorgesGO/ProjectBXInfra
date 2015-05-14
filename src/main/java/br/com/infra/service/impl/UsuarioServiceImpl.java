@@ -14,10 +14,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
 	private IUsuarioDAO dao;
-
+	
 	@Override
 	public Usuario realizarLogin(Usuario usuario) {
 		return dao.realizarLogin(usuario);
+	}
+
+	@Override
+	public Usuario buscaPorLogin(String userName) {
+		return dao.buscaPorUsuario(userName);
+	}
+
+	@Override
+	public Usuario buscaPorId(int id) {
+		return dao.buscaPorId(id);
 	}
 
 }

@@ -1,26 +1,19 @@
 package br.com.infra.service.impl;
 
-import java.util.Properties;
-
-import javax.annotation.Resource;
-
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.WebApplicationContext;
 
+import br.com.infra.commons.entity.Usuario;
 import br.com.infra.service.ITenantService;
+import br.com.infra.service.IUsuarioService;
 
 @Service
 //@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-@PropertySource({ "classpath:persistence-postgres.properties" })
+//@PropertySource({ "classpath:persistence-postgres.properties" })
 @Transactional
 public class TenantServiceImpl implements ITenantService {
 	
@@ -29,8 +22,11 @@ public class TenantServiceImpl implements ITenantService {
 	private String tenantName = null;
 
 //	@Resource(name = "multitenancyConfiguration")
+//	@Autowired
+//	private Properties properties;
+	
 	@Autowired
-	private Properties properties;
+	private IUsuarioService usuarioService;
 
 	@Override
 	public String getTenantSchemaName() {
@@ -38,18 +34,20 @@ public class TenantServiceImpl implements ITenantService {
 	}
 
 	@Override
-    public void setTenantSchemaName(final String path) {
-        LOGGER.debug("Request URL path is {}", path);
+    public void setTenantSchemaName(final String username) {
+//        LOGGER.debug("Request URL path is {}", path);
         
-        if (StringUtils.isBlank(path)) {
-            LOGGER.error("Request URL is blank");
-            throw new IllegalArgumentException("Request URL is blank");
-        }
+//        if (StringUtils.isBlank(path)) {
+//            LOGGER.error("Request URL is blank");
+//            throw new IllegalArgumentException("Request URL is blank");
+//        }
         String tenantKey = null;
         String tenant = null;
         
-        System.err.println(path);
+//        System.err.println(path);
         tenant = "client1";
+        Usuario usuario = usuarioService.buscaPorLogin(username);
+        
 //        if (login match with criteria) {
 //            tenantKey = "tenant1";
 //            tenant = properties.getProperty(tenantKey);
