@@ -37,7 +37,7 @@ public class UsuarioRest extends ServicoRest {
 	}
 	
 	@GET
-	@Path("/{userName}")
+	@Path("/userName/{userName}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Usuario consultaPorLogin(@PathParam("userName") String userName) {
 		try {
@@ -52,7 +52,7 @@ public class UsuarioRest extends ServicoRest {
 	}
 	
 	@GET
-	@Path("/{id}")
+	@Path("/id/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Usuario consultaPorId(@PathParam("id") Integer id) {
 		try {

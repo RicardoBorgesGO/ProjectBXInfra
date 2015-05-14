@@ -27,7 +27,6 @@ public class ColaboradorServiceImpl implements IColaboradorService {
 	@Override
 	public List<Colaborador> buscarTodosColaboradores() {
 		List<Colaborador> colaboradores = dao.buscaTodos();
-		tenantService.setTenantSchemaName("ricardoborges");
 		
 		Collections.sort(colaboradores, new Comparator<Colaborador>() {
 			@Override

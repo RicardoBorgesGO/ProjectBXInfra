@@ -19,8 +19,8 @@ public class RegisterBeansConfig {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 	
-	@Bean
-	public static AutowiredAnnotationBeanPostProcessor autowiredAnnotationBeanPostProcessor() {
-		return new AutowiredAnnotationBeanPostProcessor();
-	}
+//	@Bean
+//	public static AutowiredAnnotationBeanPostProcessor autowiredAnnotationBeanPostProcessor() {
+//		return new AutowiredAnnotationBeanPostProcessor();
+//	}
 }
