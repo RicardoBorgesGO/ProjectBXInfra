@@ -42,4 +42,25 @@
 		<servlet-name>jersey-serlvet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
+	
+<!-- 	<filter> -->
+<!-- 		<filter-name>AuthenticationFilter</filter-name> -->
+<!-- 		<filter-class>br.com.infra.listener.RestAuthenticationFilter</filter-class> -->
+<!-- 	</filter> -->
+	
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>AuthenticationFilter</filter-name> -->
+<!-- 		<url-pattern>/rest/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+	
+	<!--Hook into spring security-->
+<filter>
+	<filter-name>springSecurityFilterChain</filter-name>
+	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+
+<filter-mapping>
+  <filter-name>springSecurityFilterChain</filter-name>
+  <url-pattern>/rest/*</url-pattern>
+</filter-mapping>
 </web-app>

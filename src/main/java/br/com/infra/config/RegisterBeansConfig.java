@@ -1,9 +1,10 @@
 package br.com.infra.config;
 
-import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+
+import br.com.infra.util.SpringUtils;
 
 @Configuration
 public class RegisterBeansConfig {

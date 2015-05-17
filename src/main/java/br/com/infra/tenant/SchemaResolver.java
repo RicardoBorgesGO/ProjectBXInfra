@@ -1,10 +1,11 @@
-package br.com.infra.config;
+package br.com.infra.tenant;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import br.com.infra.service.ITenantService;
 import br.com.infra.service.impl.TenantServiceImpl;
+import br.com.infra.util.SpringUtils;
 
 @Component
 public class SchemaResolver {

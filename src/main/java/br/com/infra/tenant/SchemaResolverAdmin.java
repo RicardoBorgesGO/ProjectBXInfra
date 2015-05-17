@@ -1,4 +1,4 @@
-package br.com.infra.config;
+package br.com.infra.tenant;
 
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.slf4j.Logger;

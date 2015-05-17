@@ -1,4 +1,4 @@
-package br.com.infra.config;
+package br.com.infra.tenant;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
+
+import br.com.infra.config.ConnectionProviderBuilder;
 
 public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionProvider {
 

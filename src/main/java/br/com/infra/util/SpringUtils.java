@@ -1,4 +1,4 @@
-package br.com.infra.config;
+package br.com.infra.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
